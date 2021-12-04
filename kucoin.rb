@@ -35,12 +35,12 @@ latest = Dir
   .glob("data/coins/*.coinlist")
   .sort_by {|x| File.mtime(x) }
   .last
-puts latest
+puts "using latest coinlist file: #{latest}"
 
 File.open("data/market/#{Time.now.utc.iso8601}", "w") do |file|
   File.readlines(latest)
     .each do |symbol|
-      @trades = KuCoin.margin_trade_data(currency: symbol)
+      @trades = KuCoin.margin_trade_data(currency: symbol.strip!)
       @by_terms = @trades.group_by {|t| t['term'] }
 
       # # for each term, calculate average interest rate & annualized APY
