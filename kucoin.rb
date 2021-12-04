@@ -62,7 +62,7 @@ File.open("data/market/#{Time.now.utc.iso8601}", "w") do |file|
         }
         Hash[term, stats]
       end
-      data = Hash[symbol, @market_stats]
+      data = {symbol: symbol, data: @market_stats}
       file.puts(data.to_json)
       puts "#{symbol}: #{@market_stats.to_json}"
     end
